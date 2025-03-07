@@ -2,6 +2,7 @@
   "name": "vue-pokemon-tcg-spa",
   "private": true,
   "version": "0.0.0",
+  "author": "LARANGE Samuel",
   "type": "module",
   "scripts": {
     "dev": "vite",
