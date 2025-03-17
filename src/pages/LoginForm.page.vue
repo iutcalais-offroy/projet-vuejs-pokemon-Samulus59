@@ -6,6 +6,8 @@ import axios from "axios";
 const email_inscription = ref("");
 const mdp_inscription = ref("");
 const verif_mdp = ref("");
+const email_connexion = ref("");
+const mdp_connexion = ref("");
 
 
 const inscription = async () => 
@@ -25,10 +27,31 @@ const inscription = async () =>
     });
 
     console.log("Inscription réussie", response.data);
-  } 
+    window.location.reload()
+    } 
   catch (error) 
   {
     console.error("Erreur lors de l'inscription:", error);
+  }
+};
+
+const connexion = async () => 
+{
+  try 
+  {
+    const response = await axios.post("https://pokemon-api-seyrinian-production.up.railway.app/users/login", 
+    {
+      email: email_connexion.value,
+      password: mdp_connexion.value,
+    });
+
+    console.log("Connexion réussie", response.data);
+    localStorage.token = response.token;
+    window.location.href='/deck-builder';
+  } 
+  catch (error) 
+  {
+    console.error("Erreur lors de la connexion:", error);
   }
 };
 </script>
@@ -46,26 +69,26 @@ const inscription = async () =>
       <n-tab-pane name="signin" tab="Connexion">
         <n-form>
           <n-form-item-row label="Email">
-            <n-input name="email_connexion" placeholder="Entrez votre email" />
+            <n-input v-model:value="email_connexion" placeholder="Entrez votre email" />
           </n-form-item-row>
           <n-form-item-row label="Mot de passe">
-            <n-input name="mdp_connexion" placeholder="Entrez votre mot de passe" />
+            <n-input v-model:value="mdp_connexion" placeholder="Entrez votre mot de passe" />
           </n-form-item-row>
         </n-form>
-        <n-button type="primary" block secondary strong>
+        <n-button type="primary" block secondary strong @click="connexion">
           Se connecter
         </n-button>
       </n-tab-pane>
       <n-tab-pane name="signup" tab="Inscription">
         <n-form>
           <n-form-item-row label="Email">
-            <n-input v-model="email_inscription" placeholder="Entrez votre email" />
+            <n-input v-model:value="email_inscription" placeholder="Entrez votre email" />
           </n-form-item-row>
           <n-form-item-row label="Mot de passe">
-            <n-input type="password" v-model="mdp_inscription" placeholder="Entrez votre mot de passe" />
+            <n-input type="password" v-model:value="mdp_inscription" placeholder="Entrez votre mot de passe" />
           </n-form-item-row>
           <n-form-item-row label="Confirmer mot de passe">
-            <n-input type="password" v-model="verif_mdp" placeholder="Confirmez votre mot de passe" />
+            <n-input type="password" v-model:value="verif_mdp" placeholder="Confirmez votre mot de passe" />
           </n-form-item-row>
         </n-form>
         <n-button type="primary" block secondary strong @click="inscription">
