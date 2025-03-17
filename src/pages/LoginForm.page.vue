@@ -46,7 +46,8 @@ const connexion = async () =>
     });
 
     console.log("Connexion réussie", response.data);
-    localStorage.token = response.token;
+    localStorage.userid = response.data.user.id;
+    localStorage.token = response.data.token;
     window.location.href='/deck-builder';
   } 
   catch (error) 
@@ -72,7 +73,7 @@ const connexion = async () =>
             <n-input v-model:value="email_connexion" placeholder="Entrez votre email" />
           </n-form-item-row>
           <n-form-item-row label="Mot de passe">
-            <n-input v-model:value="mdp_connexion" placeholder="Entrez votre mot de passe" />
+            <n-input type="password" v-model:value="mdp_connexion" placeholder="Entrez votre mot de passe" />
           </n-form-item-row>
         </n-form>
         <n-button type="primary" block secondary strong @click="connexion">
@@ -92,7 +93,7 @@ const connexion = async () =>
           </n-form-item-row>
         </n-form>
         <n-button type="primary" block secondary strong @click="inscription">
-          Sign up
+          S'inscrire
         </n-button>
       </n-tab-pane>
     </n-tabs>
