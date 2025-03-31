@@ -12,7 +12,7 @@ const RecupererPokemons = async () =>
 {
   try 
   {
-    const response = await axios.get("https://pokemon-api-seyrinian-production.up.railway.app/pokemon-cards");
+    const response = await axios.get("https://localhost:3000/pokemons-cards");
 
     console.log("Récupération des pokémons réussie", response.data);
     pokemons.value = response.data;
